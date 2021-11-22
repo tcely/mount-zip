@@ -20,7 +20,8 @@ prefix = /usr
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)/bin
 PKG_CONFIG ?= pkg-config
-DEPS = fuse libzip icu-uc icu-i18n
+DEPS = fuse libzip
+LIBS += -licui18n-chrome -licuuc-chrome
 LIBS += -Llib -lmountzip
 LIBS += $(shell $(PKG_CONFIG) --libs $(DEPS))
 CXXFLAGS += $(shell $(PKG_CONFIG) --cflags $(DEPS))
@@ -70,7 +71,6 @@ $(MAN): README.md
 
 install: $(DEST)
 	$(INSTALL_PROGRAM) "$(DEST)" "$(DESTDIR)$(bindir)/$(DEST)"
-	$(INSTALL_DATA) $(MAN) "$(DESTDIR)$(MANDIR)/$(MAN)"
 
 install-strip:
 	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' install
