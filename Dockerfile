@@ -23,6 +23,6 @@ FROM ubuntu:22.04 AS final
 
 ARG DESTDIR
 
-COPY --from=builder "${DESTDIR}" "${DESTDIR}"
+COPY --from=builder "${DESTDIR}" /
 
 VOLUME "${DESTDIR}"
