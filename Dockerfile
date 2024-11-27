@@ -1,8 +1,10 @@
+ARG DESTDIR='/artifacts'
+
 FROM ubuntu:22.04 AS builder
 
 ARG DEBIAN_FRONTEND='noninteractive' \
     BUILDDIR='/build' \
-    DESTDIR='/artifacts'
+    DESTDIR
 
 RUN apt-get update && apt-get upgrade && \
     apt-get -y install \
@@ -16,5 +18,11 @@ WORKDIR "${BUILDDIR}"
 RUN make && make check
 
 RUN mkdir -v -p "${DESTDIR}" && make install-strip
+
+FROM ubuntu:22.04 AS final
+
+ARG DESTDIR
+
+COPY --from=builder "${DESTDIR}"
 
 VOLUME "${DESTDIR}"
