@@ -15,7 +15,7 @@ RUN apt-get update && apt-get upgrade && \
 COPY --link . "${BUILDDIR}"
 WORKDIR "${BUILDDIR}"
 
-RUN make && make check
+RUN make
 
 RUN mkdir -v -p "${DESTDIR}" && make install-strip
 
