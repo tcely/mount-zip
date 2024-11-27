@@ -19,10 +19,10 @@ RUN make
 
 RUN mkdir -v -p "${DESTDIR}" && make install-strip
 
+VOLUME "${DESTDIR}"
+
 FROM ubuntu:22.04 AS final
 
 ARG DESTDIR
 
 COPY --from=builder "${DESTDIR}" /
-
-VOLUME "${DESTDIR}"
