@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND='noninteractive' \
     DESTDIR='/artifacts'
 
 RUN apt-get update && apt-get upgrade && \
-    apt-get install \
+    apt-get -y install \
         libboost-container-dev libicu-dev libfuse-dev libzip-dev \
         g++ pkg-config make pandoc \
         python3
