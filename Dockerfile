@@ -1,6 +1,6 @@
-ARG DESTDIR='/artifacts'
+ARG DESTDIR='/artifacts' UBUNTU_LTS='22.04'
 
-FROM ubuntu:22.04 AS builder
+FROM ubuntu:${UBUNTU_LTS} AS builder
 
 ARG DEBIAN_FRONTEND='noninteractive' \
     BUILDDIR='/build' \
@@ -21,7 +21,7 @@ RUN mkdir -v -p "${DESTDIR}" && make install-strip
 
 VOLUME "${DESTDIR}"
 
-FROM ubuntu:22.04 AS final
+FROM ubuntu:${UBUNTU_LTS} AS final
 
 ARG DESTDIR
 
